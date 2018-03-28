@@ -1,0 +1,7 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: gnome-shell-extension-pop-battery-icon-fix
+Source: https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix
+
+Files: *
+Copyright: 2018 Kyle Corry
+License: MIT

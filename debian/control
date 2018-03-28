@@ -1,0 +1,15 @@
+Source: gnome-shell-extension-pop-battery-icon-fix
+Section: gnome
+Priority: optional
+Maintainer: Jeremy Soller <jeremy@system76.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 3.9.8
+Homepage: https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix
+Vcs-Git: https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix.git
+
+Package: gnome-shell-extension-pop-battery-icon-fix
+Architecture: all
+Depends:
+    gnome-shell (>= 3.26.1),
+    ${misc:Depends}
+Description: Gnome-shell extension to prevent notification pop-ups
