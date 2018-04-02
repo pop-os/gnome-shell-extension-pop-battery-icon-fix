@@ -14,16 +14,31 @@ function enable() {
 
     this.power._sync = function(){
       this._oldSync();
-
       if(this._proxy.IsPresent){
-          icon = this.getIcon(this._proxy.Percentage, this._proxy.State == UPower.DeviceState.CHARGING);
 
-          this._indicator.icon_name = icon;
-          this._item.icon.icon_name = icon;
+        switch (this._proxy.State) {
+          case UPower.DeviceState.EMPTY:
+            icon_name = "battery-empty-symbolic";
+            break;
+          case UPower.DeviceState.FULLY_CHARGED:
+            icon_name = "battery-full-charged-symbolic";
+            break;
+          case UPower.DeviceState.CHARGING:
+          case UPower.DeviceState.PENDING_CHARGE:
+            icon = this.getIcon(this._proxy.Percentage, true);
+            break;
+          case UPower.DeviceState.DISCHARGING:
+          case UPower.DeviceState.PENDING_DISCHARGE:
+            icon = this.getIcon(this._proxy.Percentage, false);
+            break;
+          default:
+            icon_name = "battery-missing-symbolic";
+        }
+
+        this._indicator.icon_name = icon;
+        this._item.icon.icon_name = icon;
       }
-    }
-
-    this.power.prototype._sync = this.power._sync;
+    };
 
     this.power._sync();
 }
