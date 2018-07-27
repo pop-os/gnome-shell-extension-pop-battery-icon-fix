@@ -6,6 +6,7 @@ function init() {
 }
 
 function enable() {
+    var icon = "";
     this.power = Main.panel.statusArea.aggregateMenu._power;
 
     this.power._oldSync = this.power._sync;
@@ -18,10 +19,10 @@ function enable() {
 
         switch (this._proxy.State) {
           case UPower.DeviceState.EMPTY:
-            icon_name = "battery-empty-symbolic";
+            icon = "battery-empty-symbolic";
             break;
           case UPower.DeviceState.FULLY_CHARGED:
-            icon_name = "battery-full-charged-symbolic";
+            icon = "battery-full-charged-symbolic";
             break;
           case UPower.DeviceState.CHARGING:
           case UPower.DeviceState.PENDING_CHARGE:
@@ -32,7 +33,7 @@ function enable() {
             icon = this.getIcon(this._proxy.Percentage, false);
             break;
           default:
-            icon_name = "battery-missing-symbolic";
+            icon = "battery-missing-symbolic";
         }
 
         this._indicator.icon_name = icon;
