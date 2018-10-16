@@ -1,21 +1,19 @@
 const Main = imports.ui.main;
 const UPower = imports.gi.UPowerGlib;
 
+let old;
+
 
 function init() {
 }
 
 function enable() {
-    var icon = "";
-    this.power = Main.panel.statusArea.aggregateMenu._power;
+    old = Main.panel.statusArea.aggregateMenu._power._sync;
 
-    this.power._oldSync = this.power._sync;
-
-    this.power.getIcon = getIcon;
-
-    this.power._sync = function(){
-      this._oldSync();
+    Main.panel.statusArea.aggregateMenu._power._sync = function(){
+      let ret = old.apply(this, arguments);
       if(this._proxy.IsPresent){
+        let icon;
 
         switch (this._proxy.State) {
           case UPower.DeviceState.EMPTY:
@@ -26,11 +24,11 @@ function enable() {
             break;
           case UPower.DeviceState.CHARGING:
           case UPower.DeviceState.PENDING_CHARGE:
-            icon = this.getIcon(this._proxy.Percentage, true);
+            icon = getIcon(this._proxy.Percentage, true);
             break;
           case UPower.DeviceState.DISCHARGING:
           case UPower.DeviceState.PENDING_DISCHARGE:
-            icon = this.getIcon(this._proxy.Percentage, false);
+            icon = getIcon(this._proxy.Percentage, false);
             break;
           default:
             icon = "battery-missing-symbolic";
@@ -39,9 +37,10 @@ function enable() {
         this._indicator.icon_name = icon;
         this._item.icon.icon_name = icon;
       }
-    };
+    }
 
-    this.power._sync();
+
+    Main.panel.statusArea.aggregateMenu._power._sync();
 }
 
 function getIcon(percentage, charging){
@@ -59,8 +58,6 @@ function getIcon(percentage, charging){
 
 
 function disable() {
-    this.power._sync = this.power._oldSync;
-    this.power._oldSync = undefined;
-    this.power.getIcon = undefined;
-    this.power._sync();
+    Main.panel.statusArea.aggregateMenu._power._sync = old;
+    Main.panel.statusArea.aggregateMenu._power._sync();
 }
