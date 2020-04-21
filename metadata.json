@@ -2,5 +2,6 @@
     "name": "Pop Battery Icon Fix",
     "description": "Fix the battery icon of Pop",
     "uuid": "batteryiconfix@kylecorry31.github.io",
-    "shell-version": ["3.26.2"]
+    "shell-version": ["3.26.2"],
+    "url": "https://github.com/pop-os/gnome-shell-extension-pop-battery-icon-fix"
 }
